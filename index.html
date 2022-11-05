@@ -6,7 +6,8 @@
 <body>
   <input type="text" id="text" />
   <button id="button" onclick="runOpenAI()">Click</button>
-  <div id="resultDiv"></div>
+  <input type="text" id="apikey" value="" />
+  <img id="resultDiv" src=""></img>
 
 </body>
 <script>
@@ -17,21 +18,21 @@
     var data = {
       "prompt": text,
       "n": 1,
-      "size": "1024x1024",
+      "size": "512x512",
     };
     var xhr = new XMLHttpRequest();
     xhr.open("POST", url, true);
     xhr.setRequestHeader("Content-Type", "application/json");
-    xhr.setRequestHeader("Authorization", "Bearer API-KEY");
-    xhr.onreadystatechange = function() {
+    xhr.setRequestHeader("Authorization", "Bearer YOUR_API_KEY");
+    xhr.onreadystatechange = function () {
       if (xhr.readyState == 4 && xhr.status == 200) {
         var json = JSON.parse(xhr.responseText);
-
+        document.getElementById("resultDiv").src = json.data[0].url;
         console.log(json.data[0].url);
       }
     }
     xhr.send(JSON.stringify(data));
-   
+
   }
 
 </script>
