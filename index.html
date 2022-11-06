@@ -1,13 +1,26 @@
 <html>
 
 <head>
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
 <body>
-  <input type="text" id="text" />
-  <button id="button" onclick="runOpenAI()">Click</button>
-  <input type="text" id="apikey" value="" />
-  <img id="resultDiv" src=""></img>
+  <div class="flex flex-col justify-center py-8">
+    <h1 class="font-bold text-2xl mx-auto pb-8">
+      OpenAI Image Generator
+    </h1>
+    <div class="flex flex-col items-center w-64 mx-auto">
+    
+      <label class="font-bold">Prompt:</label>
+      <input type="text" id="text" class="border px-2" value="a picture of a cat" />
+      <button id="button" class="bg-gray-500 w-24 my-2 py-2 rounded hover:bg-slate-400" onclick="runOpenAI()">Generate</button>
+      <input type="text" id="myapi" class="border px-2" value="" />
+    </div>
+    <div class="flex h-96 w-auto pt-4 mx-auto">
+      <img id="resultDiv" src="" class="w-fit"></img>
+    </div>
+  </div>
+
 
 </body>
 <script>
@@ -22,8 +35,10 @@
     };
     var xhr = new XMLHttpRequest();
     xhr.open("POST", url, true);
+    var myapikey = document.getElementById("myapi").value;
     xhr.setRequestHeader("Content-Type", "application/json");
-    xhr.setRequestHeader("Authorization", "Bearer YOUR_API_KEY");
+//authorization bearer token
+    xhr.setRequestHeader("Authorization", "Bearer " + myapikey);
     xhr.onreadystatechange = function () {
       if (xhr.readyState == 4 && xhr.status == 200) {
         var json = JSON.parse(xhr.responseText);
